@@ -20,6 +20,10 @@ export default new Router({
     {
       path:'/register',
       component:resolve=>require(['../components/page/login/Register.vue'],resolve)
+    },
+    {
+      path:'/cart',
+      component:resolve=>require(['../components/b_system/cart.vue'],resolve)
     }
   ]
 })

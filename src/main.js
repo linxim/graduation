@@ -8,8 +8,12 @@ import ElementUI from 'element-ui';
 import store from 'vuex'
 import 'element-ui/lib/theme-default/index.css';
 import "babel-polyfill";
+import '../node_modules/bootstrap3/dist/css/bootstrap.min.css';
+
+
 // 验证码插件
-import SIdentify from './components/page/login/Identify.vue'
+import SIdentify from './components/page/login/Identify.vue';
+
 Vue.component("SIdentify",SIdentify);
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'

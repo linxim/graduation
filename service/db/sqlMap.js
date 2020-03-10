@@ -12,6 +12,9 @@ var sqlMap = {
     },
     vegetables:{
         select_name:'select * from vegetables'
+    },
+    cart:{
+        select_name:'select * from cart'
     }
 }
 

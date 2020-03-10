@@ -7,7 +7,15 @@
         </div>
         <div class="travel-title">
           <div class="travel-max">水果</div>
-          <div class="travel-min">苹果 梨子 樱桃</div>
+          <div class="travel-min" style="display:flex;justify-content:space-between;">
+            <div>
+
+             <span>  <i class="iconfont icon-shuiguopingguo"></i> 苹果</span>
+             <i class="iconfont icon-lizi"></i> 梨子</span> 
+             <i class="iconfont icon-yingtao"></i> 樱桃</span>
+            </div>
+             <div> <a href="">查看更多></a> </div>
+             </div>
         </div>
       </div>
 
@@ -80,4 +88,5 @@ export default {
 </script>
 <style  scoped>
  @import "./fruit.scss";
+ @import url("//at.alicdn.com/t/font_1677509_ru4l794wd4.css");
 </style>

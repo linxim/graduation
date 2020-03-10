@@ -4,31 +4,30 @@
     <fruit></fruit>
     <vegetables></vegetables>
     <meat></meat>
+    <page-footer></page-footer>
   </div>
 </template>
 
 <script>
 import PageHeader from "./PageHeader";
-import Fruit from "./fruit/fruit"
-import Vegetables from "./vegetables/vegetables"
-import Meat from "./meat/meat"
+import Fruit from "./fruit/fruit";
+import Vegetables from "./vegetables/vegetables";
+import Meat from "./meat/meat";
+import PageFooter from "./footer/pagefooter";
 
 export default {
   name: "Index",
   components: {
-    // FooterLy,
     PageHeader,
     Fruit,
     Vegetables,
     Meat,
+    PageFooter,
   },
   data() {
     return {
       show: false,
       picters: [],
-      
-  
-      
     };
   },
 
