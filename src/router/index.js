@@ -24,6 +24,14 @@ export default new Router({
     {
       path:'/cart',
       component:resolve=>require(['../components/b_system/cart.vue'],resolve)
+    },
+    {
+      path:'/con_buy',
+      component:resolve=>require(['../components/b_system/contrast/con_buy.vue'],resolve)
+    },
+    {
+      path:'/fresh',
+      component:resolve=>require(['../components/b_system/fresh/fresh.vue'],resolve)
     }
   ]
 })

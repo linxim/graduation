@@ -15,6 +15,12 @@ var sqlMap = {
     },
     cart:{
         select_name:'select * from cart'
+    },
+    conbuy:{
+        select_name:'select * from con_buy'
+    },
+    fresh:{
+        select_name:'select * from fresh'
     }
 }
 

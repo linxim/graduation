@@ -199,7 +199,6 @@ router.get('/getVegetables',(req,res) =>{
 router.get('/getCart',(req,res)=>{
     var sql_name = $sql.cart.select_name;
     var params = req.body;
-    console.log(params);
     if (params.name) {
         sql_name += "where username ='" + params.name + "'";
     }
@@ -211,6 +210,40 @@ router.get('/getCart',(req,res)=>{
             res.send('-1')
         } else {
             jsonWrite(res, result);
+        }
+    })
+})
+router.get('/conBuy',(req,res)=>{
+    var sql_name=$sql.conbuy.select_name;
+    var params=req.body;
+    if(params.name){
+        sql_name+="where username ='"+ params.name+"'";
+    }
+    conn.query(sql_name,params.name,function(err,result){
+        if(err){
+            console.log(err)
+        }
+        if(result[0] == undefined){
+            res.send('-1')
+        } else {
+            jsonWrite(res,result);
+        }
+    })
+})
+router.get('/getFresh',(req,res)=>{
+    var sql_name=$sql.fresh.select_name;
+    var params=req.body;
+    if(params.name){
+        sql_name+="where username ='"+ params.name+"'";
+    }
+    conn.query(sql_name,params.name,function(err,result){
+        if(err){
+            console.log(err)
+        }
+        if(result[0] == undefined){
+            res.send('-1')
+        } else {
+            jsonWrite(res,result);
         }
     })
 })

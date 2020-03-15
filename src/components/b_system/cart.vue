@@ -36,6 +36,9 @@
           <table class="table table-condensed">
             <thead>
               <tr>
+                <th>
+                  <el-checkbox v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                </th>
                 <th>图片</th>
                 <th>商品名称</th>
                 <th>商品数量</th>
@@ -45,15 +48,32 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in searchFor">
+              <tr v-for="(item,index) in searchFor" :key="index">
+                <td>
+                  <el-checkbox
+                    v-model="item.ischecked"
+                    @change="handleCheckedNameChange"
+                  >{{item.id}}</el-checkbox>
+                </td>
+
                 <td>
                   <img :alt="item.name" />
                 </td>
                 <td>{{item.name}}</td>
                 <td>
-                  <button @click="minus(item.num -=1)" :disabled="item.num===0">-</button>
+                  <el-button
+                    @click="minus(item.num -=1)"
+                    :disabled="item.num===0"
+                    class="btn-add"
+                    circle
+                  >-</el-button>
                   {{item.num}}
-                  <button @click="add(item.num +=1)">+</button>
+                      <el-button
+                   @click="add(item.num +=1)"
+                    class="btn-add"
+                    circle
+                  >+</el-button>
+                
                 </td>
                 <td>{{item.univalence | numFilter(2)}}</td>
                 <td>{{item.num*item.univalence | numFilter(1)}}</td>
@@ -61,6 +81,7 @@
                   <button type="button" class="btn btn-success btn-sm">商品详情</button>
                 </td>
               </tr>
+
               <tr>
                 <td colspan="6">{{totalCount}} 件商品总计(不含运费):{{totalPrice | numFilter(2)}}</td>
               </tr>
@@ -72,18 +93,15 @@
                     <el-table-column property="name" label="姓名" width="100"></el-table-column>
                     <el-table-column property="address" label="地址"></el-table-column>
                     <el-table-column property="addgoods" label="添加商品" width="100">
-                      
-                        <el-dropdown>
-                          <span class="el-dropdown-link">
-                            下拉菜单
-                            <i class="el-icon-arrow-down el-icon--right"></i>
-                          </span>
-                          <el-dropdown-menu slot="dropdown" >
-                            <el-dropdown-item  >123123</el-dropdown-item>
-                       
-                          </el-dropdown-menu>
-                        </el-dropdown>
-                     
+                      <el-dropdown>
+                        <span class="el-dropdown-link">
+                          下拉菜单
+                          <i class="el-icon-arrow-down el-icon--right"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                          <el-dropdown-item>123123</el-dropdown-item>
+                        </el-dropdown-menu>
+                      </el-dropdown>
                     </el-table-column>
                     <el-table-column property="buygoods" label="购买商品">
                       <el-button type="text" @click="open">购买</el-button>
@@ -105,6 +123,8 @@ export default {
       tableData: [],
       searchValue: "",
       onestop: false,
+      checkAll: false,
+
       gridData: [
         {
           date: "2020-3-8",
@@ -139,9 +159,12 @@ export default {
     },
     totalPrice: function() {
       var n = 0;
-      this.tableData.forEach(function(v, i) {
-        n += v.num * v.univalence;
-      });
+      for (var i = 0; i < this.tableData.length; i++) {
+        if (this.tableData[i].ischecked == true) {
+          n += this.tableData[i].num * this.tableData[i].univalence;
+        }
+      }
+
       return n;
     }
   },
@@ -157,28 +180,57 @@ export default {
       const self = this;
       this.$http.get("/api/user/getCart").then(response => {
         self.tableData = response.data;
+        console.log(self.tableData[0].ischecked);
+        self.tableData[0].ischecked = JSON.parse(self.tableData[0].ischecked);
+        console.log(typeof self.tableData[0].ischecked);
       });
     },
-    open(){
-      this.$confirm('确定是否购买','提示',{
-        confirmButtonText:'确定',
-        cancelButtonText:'取消',
-        type:'warning'
-      }).then(()=>{
+    open() {
+      this.$confirm("确定是否购买", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
           this.$message({
-            type:'success',
-            message:'购买成功!',
-            
+            type: "success",
+            message: "购买成功!"
           });
-          this.$router.push({path:'/'})
-        }).catch(()=>{
-          this.$message({
-            type:'info',
-            message:'已取消'
-          })
+          this.$router.push({ path: "/" });
         })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
+    },
+    handleCheckAllChange(val) {
+      if (this.checkAll) {
+        this.checkAll = true;
+        for (var i = 0; i < this.tableData.length; i++) {
+          this.tableData[i].ischecked = true;
+        }
+      } else {
+        this.checkAll = false;
+        for (i = 0; i < this.tableData.length; i++) {
+          this.tableData[i].ischecked = false;
+        }
       }
-    
+    },
+    handleCheckedNameChange(value) {
+      if (this.tableData.ischecked == true) {
+        this.tableData.ischecked = false;
+      } else {
+        this.tableData.ischecked = true;
+      }
+      // let checkedCount = value.length;
+      // this.checkAll = checkedCount === this.tableData.length;
+      // console.log(this.checkAll);
+      // this.isIndeterminate =
+      //   checkedCount > 0 && checkedCount < this.tableData.length;
+      // console.log(this.isIndeterminate);
+    }
   },
   mounted() {
     this.getCart();

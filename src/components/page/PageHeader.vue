@@ -36,14 +36,14 @@
       <div>
         <el-row>
           <el-col :span="8">
-            <div class="grid-content fea-text" > <router-link to="/cart" style="text-decoration:none;"> <span style="color:white;">一键购物方式  </span> </router-link> </div>
+            <div class="grid-content fea-text" > <router-link to="/cart" style="text-decoration:none;"> <i class="el-icon-sold-out"></i> <span style="color:white;">一键购物方式  </span> </router-link> </div>
          
           </el-col>
           <el-col :span="8">
-            <div class="grid-content fea-text">商品价格对比购买</div>
+            <div class="grid-content fea-text"><router-link to="/con_buy" style="text-decoration:none;"> <i class="el-icon-time"></i> <span style="color:#F4580B;">批发特价</span> </router-link></div>
           </el-col>
           <el-col :span="8">
-            <div class="grid-content fea-text">海量新鲜商品供应</div>
+            <div class="grid-content fea-text"><router-link to="/fresh" style="text-decoration:none;">  <span style="color:white;">海量新鲜商品供应</span> </router-link></div>
           </el-col>
         </el-row>
       </div>

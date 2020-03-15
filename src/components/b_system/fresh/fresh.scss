@@ -1,0 +1,78 @@
+body{
+    background: #f0f4f0;
+}
+.fresh{
+    width: 800px;
+    margin: 0 auto;
+    height: 100%;
+}
+.fresh-body{
+    width: 100%;
+    height: 100%;
+}
+.wrap-good{
+    padding-bottom: 0;
+    position: relative;
+    width: 800px;
+    height: 100%;
+    background-color: grey;
+}
+.wrap-good ul li{
+    width: 385px;
+    height: 373px;
+    float: left;
+    background-color: #fff;
+    position: relative;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    list-style: none;
+}
+.goods-img{
+    height: 231px;
+  
+    position: relative;
+}
+.goods-img>img{
+    width: 385px;
+    height: 231px;
+}
+.btn-more{
+    position: absolute;
+    right: 5px;
+    bottom: -15px;
+    line-height: 30px;
+    background: #58D0A6;
+    color: #fff;
+    border-radius: 15px;
+    padding: 0 4px;
+}
+.goods-name{
+    font-size: 24px;
+    width: 100%;
+    margin: 25px 0 0;
+    font-weight: 400;
+}
+.goods-introduce{
+    font-size: 16px;
+    color: #9f9f9f;
+    margin: 0;
+}
+.goods-num-price{
+    color: #58d0a6;
+    font-size: 20px;
+    margin: 0 0 5px;
+    padding: 0 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.chat{
+    display: inline-block;
+    width: 48px;
+    height: 46px;
+    position: fixed;
+    left: 2px;
+    bottom: 20%;
+    background: url(../../../../static/img/fresh_img/chat.jpg);
+    background-size: 100%;
+    z-index: 999;
+}

@@ -39,9 +39,9 @@ export default {
     getFruit() {
       const self = this;
       this.$http.get("/api/user/getMeat").then(response => {
-        console.log(response.data);
+      
         self.picters = response.data;
-        console.log(self.picters);
+      
       });
     }
   },
