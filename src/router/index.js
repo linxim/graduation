@@ -32,6 +32,10 @@ export default new Router({
     {
       path:'/fresh',
       component:resolve=>require(['../components/b_system/fresh/fresh.vue'],resolve)
+    },
+    {
+      path:'/nav_cart',
+      component:resolve=>require(['../components/page/nav_cart/nav_cart.vue'],resolve)
     }
   ]
 })

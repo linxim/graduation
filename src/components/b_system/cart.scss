@@ -64,3 +64,14 @@ margin:0 auto;
   padding: 6px;
 
 }
+.cart_body{
+  position: relative;
+  top:20px;
+}
+.cart_mess{
+  width:150px;
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow:ellipsis;
+}

@@ -4,17 +4,18 @@ var router = express.Router();
 var mysql = require('mysql');
 var $sql = require('../db/sqlMap');
 
+
 var conn = mysql.createConnection(models.mysql);
 
 conn.connect();
 
 var jsonWrite = function (res, ret) {
-    if (typeof ret === 'undefined') {
-        res.send('err');
-    } else {
-        console.log(ret);
-        res.send(ret);
-    }
+  if (typeof ret === 'undefined') {
+    res.send('err');
+  } else {
+    console.log(ret);
+    res.send(ret);
+  }
 }
 
 // var dateStr = function (str) {
@@ -143,108 +144,182 @@ var jsonWrite = function (res, ret) {
 
 
 router.get('/getMeat', (req, res) => {
-    var sql_name = $sql.meat.select_name;
-    var params = req.body;
-    console.log(params);
-    if (params.name) {
-        sql_name += "where username ='" + params.name + "'";
+  var sql_name = $sql.meat.select_name;
+  var params = req.body;
+  console.log(params);
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err);
     }
-    conn.query(sql_name, params.name, function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        if (result[0] == undefined) {
-            res.send('-1')
-        } else {
-            jsonWrite(res, result);
-        }
-    })
-})
-router.get('/getFruit',(req,res) =>{
-    var sql_name = $sql.fruit.select_name;
-    var params = req.body;
-    console.log(params);
-    if (params.name) {
-        sql_name += "where username ='" + params.name + "'";
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
     }
-    conn.query(sql_name, params.name, function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        if (result[0] == undefined) {
-            res.send('-1')
-        } else {
-            jsonWrite(res, result);
-        }
-    })
+  })
 })
-router.get('/getVegetables',(req,res) =>{
-    var sql_name = $sql.fruit.select_name;
-    var params = req.body;
-    console.log(params);
-    if (params.name) {
-        sql_name += "where username ='" + params.name + "'";
+router.get('/getFruit', (req, res) => {
+  var sql_name = $sql.fruit.select_name;
+  var params = req.body;
+  console.log(params);
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err);
     }
-    conn.query(sql_name, params.name, function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        if (result[0] == undefined) {
-            res.send('-1')
-        } else {
-            jsonWrite(res, result);
-        }
-    })
-})
-router.get('/getCart',(req,res)=>{
-    var sql_name = $sql.cart.select_name;
-    var params = req.body;
-    if (params.name) {
-        sql_name += "where username ='" + params.name + "'";
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
     }
-    conn.query(sql_name, params.name, function (err, result) {
-        if (err) {
-            console.log(err);
-        }
-        if (result[0] == undefined) {
-            res.send('-1')
-        } else {
-            jsonWrite(res, result);
-        }
-    })
+  })
 })
-router.get('/conBuy',(req,res)=>{
-    var sql_name=$sql.conbuy.select_name;
-    var params=req.body;
-    if(params.name){
-        sql_name+="where username ='"+ params.name+"'";
+router.get('/getVegetables', (req, res) => {
+  var sql_name = $sql.fruit.select_name;
+  var params = req.body;
+  console.log(params);
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err);
     }
-    conn.query(sql_name,params.name,function(err,result){
-        if(err){
-            console.log(err)
-        }
-        if(result[0] == undefined){
-            res.send('-1')
-        } else {
-            jsonWrite(res,result);
-        }
-    })
-})
-router.get('/getFresh',(req,res)=>{
-    var sql_name=$sql.fresh.select_name;
-    var params=req.body;
-    if(params.name){
-        sql_name+="where username ='"+ params.name+"'";
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
     }
-    conn.query(sql_name,params.name,function(err,result){
-        if(err){
-            console.log(err)
-        }
-        if(result[0] == undefined){
-            res.send('-1')
-        } else {
-            jsonWrite(res,result);
-        }
-    })
+  })
 })
+router.get('/getCart', (req, res) => {
+  var sql_name = $sql.cart.select_name;
+  var params = req.body;
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
+    }
+  })
+})
+router.get('/conBuy', (req, res) => {
+  var sql_name = $sql.conbuy.select_name;
+  var params = req.body;
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
+    }
+  })
+})
+router.get('/getFresh', (req, res) => {
+  var sql_name = $sql.fresh.select_name;
+  var params = req.body;
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
+    }
+  })
+})
+// 购物车接口
+router.get('/getNav_cart', (req, res) => {
+  var sql_name = $sql.nav_cart.select_name;
+  var params = req.body;
+  if (params.name) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
+    }
+  })
+})
+//添加购物车接口
+router.post('/addNav_cart', (req, res) => {
+  //添加
+  var sql = $sql.nav_cart.add;
+  var params = req.body;
+
+  conn.query(sql, [params.img, params.message, params.univalence, params.num], function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+});
+// 删除购物车接口
+router.post('/delNav_cart', function (req, res) {
+  //删除
+  var sql_del = $sql.nav_cart.del_data;
+
+  var params = req.body;
+  // params接收请求内容
+  sql_del += "where id =" + params.id;
+  conn.query(sql_del, null, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
+    }
+
+
+  })
+});
+//支付成功(更新)
+router.post('/editNav_cart', function (req, res) {
+  var sql = $sql.nav_cart.update_user;
+  var params = req.body;
+  console.log(params.ischecked);
+  // params接收请求内容
+
+    sql_del += "ischecked =" + params.ischecked;
+  
+  conn.query(sql_del, null, function (err, result) {
+    if (err) {
+      console.log(err)
+    }
+    if (result[0] == undefined) {
+      res.send('-1')
+    } else {
+      jsonWrite(res, result);
+    }
+  })
+});
 module.exports = router;

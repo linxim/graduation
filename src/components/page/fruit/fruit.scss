@@ -139,3 +139,32 @@
     transform: scale(1.1, 1.1);
     transition: all 0.5s;
   }
+  .pop_win{
+    position: relative;
+    width: 180px;
+    padding: 35px 12px 0;
+    text-align: center;
+  }
+  .pop_win>img{
+    width:150px;height:160px;
+  }
+.title{
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+  }
+.desc{
+    margin: 0 10px 10px;
+    height: 18px;
+    font-size: 12px;
+    color: #b0b0b0;
+  }
+ .price{
+    margin: 0 10px 10px;
+    text-align: center;
+    color: #ff6700;
+  }

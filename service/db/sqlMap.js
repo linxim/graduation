@@ -21,6 +21,12 @@ var sqlMap = {
     },
     fresh:{
         select_name:'select * from fresh'
+    },
+    nav_cart:{
+        add:'insert into nav_cart (img,message,unit_price,num) values (?,?,?,?)',
+        select_name:'select * from nav_cart',
+        update_user:'update nav_cart set',
+        del_data:'delete from nav_cart ',
     }
 }
 

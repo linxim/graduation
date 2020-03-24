@@ -13,7 +13,9 @@
           </router-link>
         </li>
         <li>
-          <span style="color:white">理性购物</span>
+          <router-link to="/nav_cart">
+          <span style="color:white">购物车</span>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -36,9 +38,7 @@
           <table class="table table-condensed">
             <thead>
               <tr>
-                <th>
-                  <el-checkbox v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-                </th>
+            
                 <th>图片</th>
                 <th>商品名称</th>
                 <th>商品数量</th>
@@ -48,18 +48,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,index) in searchFor" :key="index">
-                <td>
+              <tr v-for="(item,index) in searchFor" :key="index" class="cart_body">
+                <!-- <td>
                   <el-checkbox
                     v-model="item.ischecked"
                     @change="handleCheckedNameChange"
                   >{{item.id}}</el-checkbox>
-                </td>
+                </td> -->
 
                 <td>
-                  <img :alt="item.name" />
+                  <img :src="item.img" :alt="item.name" style="width:98px;height:100px" />
                 </td>
-                <td>{{item.name}}</td>
+                <td>{{item.name}} <p  class="cart_mess"> {{item.message}} </p> </td>
                 <td>
                   <el-button
                     @click="minus(item.num -=1)"
@@ -78,15 +78,14 @@
                 <td>{{item.univalence | numFilter(2)}}</td>
                 <td>{{item.num*item.univalence | numFilter(1)}}</td>
                 <td>
-                  <button type="button" class="btn btn-success btn-sm">商品详情</button>
+                  <button type="button" class="btn btn-success btn-sm" @click="addCart(item.id)" >加入购物车</button>
                 </td>
               </tr>
 
-              <tr>
+              <!-- <tr>
                 <td colspan="6">{{totalCount}} 件商品总计(不含运费):{{totalPrice | numFilter(2)}}</td>
-              </tr>
-              <tr>
-                <button type="button" class="btn btn-success btn-sm" @click="onestop=true">快捷购买</button>
+              </tr> -->
+              <!-- <tr>
                 <el-dialog title="收货地址" :visible.sync="onestop" width="1000px">
                   <el-table :data="gridData">
                     <el-table-column property="date" label="日期" width="100"></el-table-column>
@@ -108,7 +107,7 @@
                     </el-table-column>
                   </el-table>
                 </el-dialog>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
@@ -123,8 +122,8 @@ export default {
       tableData: [],
       searchValue: "",
       onestop: false,
-      checkAll: false,
-
+   
+     
       gridData: [
         {
           date: "2020-3-8",
@@ -136,6 +135,7 @@ export default {
   },
   filters: {
     numFilter: function(data, n) {
+   
       return "$" + data.toFixed(n);
     }
   },
@@ -157,16 +157,7 @@ export default {
       });
       return n;
     },
-    totalPrice: function() {
-      var n = 0;
-      for (var i = 0; i < this.tableData.length; i++) {
-        if (this.tableData[i].ischecked == true) {
-          n += this.tableData[i].num * this.tableData[i].univalence;
-        }
-      }
 
-      return n;
-    }
   },
   methods: {
     add: function(i) {
@@ -176,13 +167,12 @@ export default {
     minus: function(i) {
       i--;
     },
+    // 请求接口获取ischecked的数据并转换为boolean
     getCart() {
       const self = this;
       this.$http.get("/api/user/getCart").then(response => {
         self.tableData = response.data;
-        console.log(self.tableData[0].ischecked);
         self.tableData[0].ischecked = JSON.parse(self.tableData[0].ischecked);
-        console.log(typeof self.tableData[0].ischecked);
       });
     },
     open() {
@@ -205,32 +195,22 @@ export default {
           });
         });
     },
-    handleCheckAllChange(val) {
-      if (this.checkAll) {
-        this.checkAll = true;
-        for (var i = 0; i < this.tableData.length; i++) {
-          this.tableData[i].ischecked = true;
+    addCart(i,data) {
+				const self = this;			
+        console.log(Object.assign({},self.tableData[i]))
+        event.path[0].disabled=true
+          this.$http.post('/api/user/addNav_cart',Object.assign({},self.tableData[i-1]))
+          .then(response =>{
+            // console.log(response);
+            
+          }).then(function(error) {
+            // console.log(error);
+          }),function(error){
+
+          
         }
-      } else {
-        this.checkAll = false;
-        for (i = 0; i < this.tableData.length; i++) {
-          this.tableData[i].ischecked = false;
-        }
-      }
-    },
-    handleCheckedNameChange(value) {
-      if (this.tableData.ischecked == true) {
-        this.tableData.ischecked = false;
-      } else {
-        this.tableData.ischecked = true;
-      }
-      // let checkedCount = value.length;
-      // this.checkAll = checkedCount === this.tableData.length;
-      // console.log(this.checkAll);
-      // this.isIndeterminate =
-      //   checkedCount > 0 && checkedCount < this.tableData.length;
-      // console.log(this.isIndeterminate);
-    }
+        self.tableData[i].ischecked=true;
+        	},
   },
   mounted() {
     this.getCart();

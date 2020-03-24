@@ -1,5 +1,6 @@
 <template>
   <div class="pageheader">
+   
     <el-menu
       default-active="activeIndex2"
       class="el-menu-demo el-menu-demo-underline"
@@ -17,7 +18,13 @@
         <router-link to="/register">商户注册</router-link>
       </el-menu-item>
 
-      <el-menu-item index="3" disabled>购物车</el-menu-item>
+    
+      <el-menu-item index="3" disabled>
+        <el-badge :value="2" class="item">
+           <router-link to="/nav_cart"> 购物车</router-link>
+        </el-badge>
+        </el-menu-item>
+   
       <el-menu-item index="4">
         <a href="https://www.ele.me">订单管理</a>
       </el-menu-item>
@@ -175,4 +182,12 @@ export default {
   font-size: 25px;
   margin: 5px;
 }
+.item {
+  position: relative;
+    float: left;
+    height: 50px;
+    line-height: 20px;
+    margin-top: 20px;
+}
+
 </style>
